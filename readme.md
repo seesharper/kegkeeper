@@ -22,14 +22,45 @@ Note that the prices will be in NOK (Norwegian Kroner) including shipping to Nor
 In addition to this we need some [brackets](https://www.thingiverse.com/thing:2624188/files) to hold the load cells in place. If we don't have access to a 3D-printer, there are plenty of websites that offers printing. For instance [PCBWay](https://www.pcbway.com/)
 
 
-
-
 ## Wiring diagram
 
 Please note that the colors of the wires may be different than in the video and the colors used in this wiring diagram. 
 
 ![](wiring-diagram.png)
 
+## Configuring Tasmota 
 
+Please refer to the video to see how we configure the Generic(18) module and the HX711 sensor.
 
+We will be using the Tasmota console to do the following configurations.
+
+### Weighres
+
+The default weight resolution in Tasmota is 0 so we can set this to 3 to enable three decimals in the reported weight. 
+
+```
+weightres 3
+```
+
+### TelePeriod
+
+This is the period to wait before we report the weight up to BarHelper. There is no need to report this value too often so setting it to 60 seconds could be a reasonable default.
+
+```
+TelePeriod 60
+```
+
+> Note that ideally we should not publish the weight unless the delta from the previous reading is above a given threshold, but since we are using the Tasmota Sensors precompiled binary here, there is no support for math functions. We need to compile our own version for that and that is sort of next level and perhaps a topic for another video. 
+
+### Publishing to BarHelper 
+
+For the weight to be reported to BarHelper, we need to set up a rule for that in Tasmota. 
+
+The rule looks like this.
+
+```
+RULE1 ON Tele-HX711#Weight DO WebQuery http://europe-west1-barhelper-app.cloudfunctions.net/api/customKegMon POST [authorization:REPLACE_THIS_WITH_THE_APIKEY_FROM_BARHELPER|Content-Type:application/json]{"name":"REPLACE_THIS_WITH_THE_NAME_OF_THE_KEGMONITOR","volume":%value%,"type":"l"} ENDON
+```
+
+Yeah, I know. I looks a little bit wierd, but the only thing we need to change is the API-KEY we get from BarHelper and the name of our keg monitor. 
 
