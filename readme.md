@@ -10,6 +10,8 @@ Check out my page here https://www.buymeacoffee.com/Y3bqWk1
 
 I've made a video that shows how to build, wire up and configure KegKeeper so that it can be integrated with Bar Helper. The video is in Norwegian, but should provide enough information to build the scale even for non-Norwegians 👍😃🇳🇴. The dialect I'm speaking is "Trøndersk" so don't worry if you don't understand a thing. Many Norwegians don't understand it either 😃.
 
+https://www.youtube.com/watch?v=wA3IK3HbGcs
+
 ## Parts list 
 
 Note that the prices will be in NOK (Norwegian Kroner) including shipping to Norway as of today June 6, 2023.
